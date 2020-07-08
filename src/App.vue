@@ -1,28 +1,47 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Item v-for="sample in samples"
+      :key="sample.itemCode"
+      :item-code="sample.itemCode"
+      :name="sample.name"
+      @add="addToCart" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Item from './components/Item.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+
+  components: { Item },
+
+  data() {
+    return {
+      samples: [
+        {
+          itemCode: '1',
+          name: 'Apple'
+        },
+        {
+          itemCode: '2',
+          name: 'Melon'
+        },
+        {
+          itemCode: '3',
+          name: 'Orange'
+        }
+      ]
+    }
+  },
+
+  methods: {
+    addToCart(item) {
+      this.$store.commit('addToCart', item);
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
